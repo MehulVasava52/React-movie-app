@@ -1,27 +1,29 @@
 import { getListPerPage } from "../actions/ActionCreators";
 import { connect } from "react-redux";
+import { Pagination } from "@material-ui/lab";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    "& .MuiPaginationItem-root": { color: "white" }
+  }
+});
 
 const BottomBar = ({ pageNo, searchQuery, totalPages, getListPerPage }) => {
   console.log(pageNo, "in pagination");
+  const classes = useStyles();
   return (
     <div className="bottomBar">
-      {pageNo > 1 && (
-        <button
-          className="paginationButton"
-          onClick={getListPerPage.bind(null, searchQuery, Number(pageNo) - 1)}
-        >
-          previous page
-        </button>
-      )}
-      <p className="pageIndex"> {pageNo} </p>
-      {pageNo < totalPages && (
-        <button
-          className="paginationButton"
-          onClick={getListPerPage.bind(null, searchQuery, Number(pageNo) + 1)}
-        >
-          Next page
-        </button>
-      )}
+      <Pagination
+        className={classes.root}
+        color="secondary"
+        size="large"
+        page={pageNo}
+        count={totalPages}
+        onChange={(e, pageNo) => {
+          getListPerPage(searchQuery, pageNo);
+        }}
+      />
     </div>
   );
 };

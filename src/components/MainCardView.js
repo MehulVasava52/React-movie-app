@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { getSearchMovieList } from "../actions/ActionCreators";
 import { useEffect } from "react";
-import Card from "./Card";
+import MovieCard from "./Card";
 const MainCardView = ({ list, getSearchMovieList }) => {
   useEffect(() => {
     getSearchMovieList("the");
@@ -9,9 +9,11 @@ const MainCardView = ({ list, getSearchMovieList }) => {
 
   return (
     <div className="mainCardView">
-      {list.map((movie) => {
-        return <Card key={movie.id} movieDetails={movie} />;
-      })}
+      {list.length > 0
+        ? list.map((movie) => {
+            return <MovieCard key={movie.id} movieDetails={movie} />;
+          })
+        : "No movies found."}
     </div>
   );
 };

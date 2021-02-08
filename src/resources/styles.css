@@ -6,7 +6,7 @@
 .appContainer {
   font-family: sans-serif;
   text-align: center;
-  background-color: #1e2129;
+  background-color: #292929;
   height: 100%;
 }
 .headerContainer {
@@ -16,8 +16,10 @@
   align-items: center;
 }
 .headerContainer .logo {
-  width: 50%;
   margin: 20px;
+  width: 55%;
+  height: 10%;
+  border-radius: 25px;
 }
 .searchInput {
   width: 100%;
@@ -30,9 +32,10 @@
 .mainCardView {
   display: flex;
   flex-wrap: wrap;
-  padding: 10% 10% 10px;
-  justify-content: space-between;
-  align-items: center;
+  padding: 10% 5% 10px;
+  justify-content: center;
+  color: white;
+  font-size: 1.2em;
 }
 .cardContainer {
   position: relative;
@@ -92,10 +95,12 @@
 }
 .searchBarContainer {
   position: relative;
-  width: 80%;
+  width: 60%;
 }
 .searchBtn {
   position: absolute;
-  right: 10px;
-  bottom: 25px;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+  color: white;
 }
