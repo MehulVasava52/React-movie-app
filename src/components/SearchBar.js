@@ -1,4 +1,7 @@
-import { getSearchMovieList } from "../actions/ActionCreators.js";
+import {
+  getSearchMovieList,
+  startFetchMovies
+} from "../actions/ActionCreators.js";
 import { connect } from "react-redux";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -32,10 +35,10 @@ const SearchBar = ({ searchList, searchQuery }) => {
         id="outlined-secondary"
         label="Search Movies"
         variant="outlined"
-        color="secondary"
         type="text"
         className={classes.root}
         fullWidth={true}
+        size="small"
         value={searchInput}
         onChange={(e) => {
           setSearchInput(e.target.value);
@@ -56,6 +59,10 @@ const mapStateToProps = (state) => {
     searchQuery: state.searchQuery
   };
 };
-export default connect(mapStateToProps, { searchList: getSearchMovieList })(
-  SearchBar
-);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchList: (searchQuery) => dispatch(getSearchMovieList(searchQuery)),
+    startFetchMovies: () => dispatch(startFetchMovies())
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

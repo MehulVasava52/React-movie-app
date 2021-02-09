@@ -1,26 +1,27 @@
 import { connect } from "react-redux";
-import { getSearchMovieList } from "../actions/ActionCreators";
-import { useEffect } from "react";
 import MovieCard from "./Card";
-const MainCardView = ({ list, getSearchMovieList }) => {
-  useEffect(() => {
-    getSearchMovieList("the");
-  }, []);
+import Loader from "./Loader";
 
+const MainCardView = ({ fetching, list }) => {
+  console.log(fetching, "fetching");
   return (
     <div className="mainCardView">
-      {list.length > 0
-        ? list.map((movie) => {
-            return <MovieCard key={movie.id} movieDetails={movie} />;
-          })
-        : "No movies found."}
+      {fetching ? (
+        <Loader />
+      ) : list && list.length > 0 ? (
+        list.map((movie) => {
+          return <MovieCard key={movie.id} movieDetails={movie} />;
+        })
+      ) : (
+        "No movies found."
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   console.log(state, "list in map state");
-  return { list: state.list };
+  return { list: state.list, fetching: state.fetching };
 };
 
-export default connect(mapStateToProps, { getSearchMovieList })(MainCardView);
+export default connect(mapStateToProps)(MainCardView);

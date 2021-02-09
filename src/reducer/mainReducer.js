@@ -1,9 +1,11 @@
-import { SEARCH, PAGE_LIST } from "../actions/Actions";
+import { SEARCH, PAGE_LIST, FETCH, FETCH_FAILURE } from "../actions/Actions";
 const initialState = {
   list: [],
   pageNo: 1,
   totalPages: 0,
-  searchQuery: ""
+  searchQuery: "",
+  fetching: false,
+  fetchFailed: false
 };
 // set loader
 const mainReducer = (state = initialState, action) => {
@@ -13,6 +15,7 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.list,
+        fetching: action.fetching,
         searchQuery: action.searchQuery,
         totalPages: action.totalPages,
         pageNo: action.pageNo
@@ -20,8 +23,21 @@ const mainReducer = (state = initialState, action) => {
     case PAGE_LIST:
       return {
         ...state,
+        fetching: action.fetching,
         list: action.list,
         pageNo: action.pageNo
+      };
+    case FETCH:
+      console.log("in fetch");
+      return {
+        ...state,
+        fetching: true
+      };
+    case FETCH_FAILURE:
+      return {
+        ...state,
+        fetching: false,
+        fetchFailed: true
       };
     default:
       return state;

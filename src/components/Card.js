@@ -7,10 +7,7 @@ import {
   CardMedia,
   Typography
 } from "@material-ui/core";
-
-const backgroundImgBaseUrl = "https://image.tmdb.org/t/p/w500";
-const noBackgroundImageUrl =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSols5HZxlQWyS9JY5d3_L9imbk0LiziHiyDtMZLHt_UNzoYUXs2g";
+import { API } from "../constants/index";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +31,8 @@ const useStyles = makeStyles({
   },
   contentRoot: {
     backgroundColor: "#d7d7d7",
-    height: "100%"
+    height: "100%",
+    minHeight: "110px"
   },
   title: {
     whiteSpace: "nowrap",
@@ -54,8 +52,8 @@ const MovieCard = ({ movieDetails }) => {
           className={classes.media}
           image={
             movieDetails.poster_path
-              ? backgroundImgBaseUrl + movieDetails.poster_path
-              : noBackgroundImageUrl
+              ? API.backgroundImgBaseUrl + movieDetails.poster_path
+              : API.noBackgroundImageUrl
           }
           title={movieDetails.title}
         />

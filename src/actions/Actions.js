@@ -1,3 +1,8 @@
-const SEARCH = "SEARCH";
-const PAGE_LIST = "LIST";
-export { SEARCH, PAGE_LIST };
+import { MOVIES } from "../constants/index";
+
+const SEARCH = MOVIES.SEARCH;
+const PAGE_LIST = MOVIES.PAGE_LIST;
+const FETCH = MOVIES.FETCHING;
+const FETCH_FAILURE = MOVIES.FETCH_FAILURE;
+
+export { SEARCH, PAGE_LIST, FETCH, FETCH_FAILURE };
