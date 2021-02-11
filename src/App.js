@@ -1,11 +1,13 @@
 import "./resources/styles.css";
-import MainCardView from "./components/MainCardView";
-import Header from "./components/Header";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { startFetchMovies, getSearchMovieList } from "./actions/ActionCreators";
+import MainCardView from "./components/MainCardView";
+import Header from "./components/Header";
 import BottomBar from "./components/BottomBar";
 import Carousel from "./components/Carousel";
-import { startFetchMovies, getSearchMovieList } from "./actions/ActionCreators";
+import DetailedCardView from "./components/DetailedCardView";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = ({ getSearchMovieList, startFetchMovies }) => {
   useEffect(() => {
@@ -13,15 +15,24 @@ const App = ({ getSearchMovieList, startFetchMovies }) => {
     startFetchMovies();
     getSearchMovieList("the");
   }, []);
+
   return (
-    <div className="appContainer">
-      <Header />
-      <Carousel />
-      <MainCardView />
-      <BottomBar />
-    </div>
+    <Router>
+      <div className="appContainer">
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Carousel />
+            <MainCardView />
+            <BottomBar />
+          </Route>
+          <Route exact path="/detailedView" component={DetailedCardView} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     getSearchMovieList: (searchQuery) =>
@@ -29,4 +40,5 @@ const mapDispatchToProps = (dispatch) => {
     startFetchMovies: () => dispatch(startFetchMovies())
   };
 };
+
 export default connect(null, mapDispatchToProps)(App);
