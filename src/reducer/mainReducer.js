@@ -4,7 +4,7 @@ import {
   FETCH,
   FETCH_FAILURE,
   FETCH_INFO,
-  FETCH_GENRES
+  FILTER_MOVIES
 } from "../actions/Actions";
 const initialState = {
   list: [],
@@ -43,7 +43,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         fetching: true
       };
-    case FETCH_GENRES:
+    case FILTER_MOVIES:
       return {
         ...state,
         genres: action.filters

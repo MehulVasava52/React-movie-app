@@ -71,8 +71,8 @@ const Header = () => {
             <RouterLink to="/">
               <Button>Home</Button>
             </RouterLink>
-            <RouterLink to="/">
-              <Button>List</Button>
+            <RouterLink to="/discover">
+              <Button>Discover</Button>
             </RouterLink>
           </ButtonGroup>
         </Toolbar>

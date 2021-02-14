@@ -7,6 +7,12 @@ const MOVIES = {
   FILTER_MOVIES: "FILTER_MOVIES"
 };
 
+const PAGE_VIEWS = {
+  MAIN_PAGE: 1,
+  FILTER_PAGE: 2,
+  DETAILES_PAGE: 3
+};
+
 const API = {
   backgroundImgBaseUrl: "https://image.tmdb.org/t/p/w500",
   backdropImgBaseUrl: "https://image.tmdb.org/t/p/original",
@@ -14,4 +20,4 @@ const API = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSols5HZxlQWyS9JY5d3_L9imbk0LiziHiyDtMZLHt_UNzoYUXs2g"
 };
 
-export { MOVIES, API };
+export { MOVIES, PAGE_VIEWS, API };
