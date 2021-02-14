@@ -7,13 +7,23 @@ const DetailedCardView = ({ fetching, movieInfo }) => {
   const dataNotAvailable = "-";
   const vote = movieInfo.vote ? `${movieInfo.vote}/10` : dataNotAvailable;
   const totalRevenue = movieInfo.revenue ? movieInfo.revenue : dataNotAvailable;
+  const imagePath = movieInfo.poster_path
+    ? API.backgroundImgBaseUrl + movieInfo.poster_path
+    : API.noBackgroundImageUrl;
+  const getBackgroundPoster = () => {
+    return {
+      backgroundImage: `url(${
+        API.backdropImgBaseUrl + movieInfo.backdrop_path
+      })`
+    };
+  };
 
-  const getProducitonCompanies = (companyList) => {
-    if (!companyList || !companyList.length) {
+  const getSeparatedList = (list) => {
+    if (!list || !list.length) {
       return "";
     }
 
-    return companyList.reduce((acc, item) => {
+    return list.reduce((acc, item) => {
       return (acc += item.name + "; ");
     }, "");
   };
@@ -21,24 +31,11 @@ const DetailedCardView = ({ fetching, movieInfo }) => {
   return fetching ? (
     <Loader />
   ) : (
-    <div
-      className="detailedViewContainer"
-      style={{
-        backgroundImage: `url(${
-          API.backdropImgBaseUrl + movieInfo.backdrop_path
-        })`
-      }}
-    >
+    <div className="detailedViewContainer" style={getBackgroundPoster()}>
       <div className="detailViewBgLayer">
         <div className="detailedViewBgImg">
           <div className="detailedMovieImg">
-            <img
-              src={
-                movieInfo.poster_path
-                  ? API.backgroundImgBaseUrl + movieInfo.poster_path
-                  : API.noBackgroundImageUrl
-              }
-            />
+            <img src={imagePath} />
           </div>
           <div className="detailedMovieInfo">
             <div>
@@ -47,10 +44,10 @@ const DetailedCardView = ({ fetching, movieInfo }) => {
               <p>{movieInfo.overview}</p>
               <div className="additionalDetails">
                 <span className="genreList infoColor">
-                  {getProducitonCompanies(movieInfo.genres)}
+                  {getSeparatedList(movieInfo.genres)}
                 </span>
                 <span className="productionList">
-                  {getProducitonCompanies(movieInfo.production_companies)}
+                  {getSeparatedList(movieInfo.production_companies)}
                 </span>
                 <div className="releaseDetails">
                   <div>

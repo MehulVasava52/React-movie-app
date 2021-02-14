@@ -14,9 +14,10 @@ const initialState = {
   fetching: false,
   fetchFailed: false,
   movieInfo: {},
-  genres: []
+  filters: [],
+  hasFilters: false
 };
-// set loader
+
 const mainReducer = (state = initialState, action) => {
   console.log(action, "action in reducer");
   switch (action.type) {
@@ -45,7 +46,7 @@ const mainReducer = (state = initialState, action) => {
     case FETCH_GENRES:
       return {
         ...state,
-        genres: action.genres
+        genres: action.filters
       };
     case FETCH_FAILURE:
       return {

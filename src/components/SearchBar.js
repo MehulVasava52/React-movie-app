@@ -26,10 +26,25 @@ const useStyles = makeStyles({
     }
   }
 });
+
 const SearchBar = ({ searchList, searchQuery }) => {
   const classes = useStyles();
   const [searchInput, setSearchInput] = useState("");
 
+  const startSearch = (value) => {
+    startFetchMovies();
+    searchList(value);
+  };
+
+  const handleChange = (event) => {
+    setSearchInput(event.target.value);
+    if (!event.target.value) {
+      startSearch("");
+    }
+  };
+
+  const handleKeyPress = (event) =>
+    event.key === "Enter" && startSearch(searchInput);
   return (
     <div className="searchBarContainer">
       <TextField
@@ -41,24 +56,11 @@ const SearchBar = ({ searchList, searchQuery }) => {
         fullWidth={true}
         size="small"
         value={searchInput}
-        onChange={(e) => {
-          setSearchInput(e.target.value);
-          if (!e.target.value) {
-            startFetchMovies();
-            searchList(e.target.value);
-          }
-        }}
-        onKeyPress={(e) =>
-          e.key === "Enter" && startFetchMovies() && searchList(searchInput)
-        }
+        onChange={handleChange}
+        onKeyPress={handleKeyPress}
       />
       <Link to="/">
-        <FaSearch
-          className="searchBtn"
-          onClick={() => {
-            searchList(searchInput);
-          }}
-        />
+        <FaSearch className="searchBtn" onClick={startSearch} />
       </Link>
     </div>
   );

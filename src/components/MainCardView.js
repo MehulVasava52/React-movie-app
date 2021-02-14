@@ -5,21 +5,19 @@ import Loader from "./Loader";
 
 const MainCardView = ({ fetching, movieList, genres, fetchGenres }) => {
   console.log(fetching, "fetching");
-  return (
-    <div id="list">
-      {fetching ? (
-        <Loader />
-      ) : movieList && movieList.length > 0 ? (
-        <div className="mainCardView">
-          {movieList.map((movie) => {
-            return <MovieCard key={movie.id} movieDetails={movie} />;
-          })}
-        </div>
-      ) : (
-        "No movies found."
-      )}
-    </div>
-  );
+  const populateMovieContent = () => {
+    return movieList && movieList.length > 0 ? (
+      <div className="mainCardView">
+        {movieList.map((movie) => {
+          return <MovieCard key={movie.id} movieDetails={movie} />;
+        })}
+      </div>
+    ) : (
+      "No movies found."
+    );
+  };
+
+  return <div id="list">{fetching ? <Loader /> : populateMovieContent()}</div>;
 };
 
 const mapStateToProps = (state) => {

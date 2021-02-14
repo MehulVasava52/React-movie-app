@@ -18,6 +18,19 @@ const Carousel = ({ list, startFetchMovies, fetchDetailedMovieInfo }) => {
     autoplay: true
   };
 
+  const getBackgroundImage = (movie) => {
+    return {
+      backgroundImage: `linear-gradient(180deg, rgb(245 246 252 / 24%), rgb(13 1 10)), url(${
+        API.backdropImgBaseUrl + movie.backdrop_path
+      })`
+    };
+  };
+
+  const handleImgClick = (movie) => {
+    startFetchMovies();
+    fetchDetailedMovieInfo(movie.id);
+  };
+
   return (
     <div id="home" className="sliderContainer">
       <Slider {...settings}>
@@ -26,18 +39,11 @@ const Carousel = ({ list, startFetchMovies, fetchDetailedMovieInfo }) => {
             <div key={index}>
               <div
                 className="sliderImgContainer"
-                style={{
-                  backgroundImage: `linear-gradient(180deg, rgb(245 246 252 / 24%), rgb(13 1 10)), url(${
-                    API.backdropImgBaseUrl + movie.backdrop_path
-                  })`
-                }}
+                style={getBackgroundImage(movie)}
               >
                 <Link to="/detailedView">
                   <img
-                    onClick={() => {
-                      startFetchMovies();
-                      fetchDetailedMovieInfo(movie.id);
-                    }}
+                    onClick={handleImgClick.bind(this, movie)}
                     src={API.backgroundImgBaseUrl + movie.poster_path}
                   />
                 </Link>
