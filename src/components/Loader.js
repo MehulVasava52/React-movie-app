@@ -1,7 +1,11 @@
+import "../resources/loader.css";
 const Loader = () => {
   return (
-    <div className="lds-ripple">
-      <div></div>
+    <div className="loaderContainer">
+      <div className="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 };

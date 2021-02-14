@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { TextField, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -42,14 +43,23 @@ const SearchBar = ({ searchList, searchQuery }) => {
         value={searchInput}
         onChange={(e) => {
           setSearchInput(e.target.value);
+          if (!e.target.value) {
+            startFetchMovies();
+            searchList(e.target.value);
+          }
         }}
+        onKeyPress={(e) =>
+          e.key === "Enter" && startFetchMovies() && searchList(searchInput)
+        }
       />
-      <FaSearch
-        className="searchBtn"
-        onClick={() => {
-          searchList(searchInput);
-        }}
-      />
+      <Link to="/">
+        <FaSearch
+          className="searchBtn"
+          onClick={() => {
+            searchList(searchInput);
+          }}
+        />
+      </Link>
     </div>
   );
 };

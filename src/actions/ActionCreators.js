@@ -1,5 +1,16 @@
-import { SEARCH, PAGE_LIST, FETCH, FETCH_FAILURE } from "./Actions.js";
-import { fetchMovieList } from "./ApiActions";
+import {
+  SEARCH,
+  PAGE_LIST,
+  FETCH,
+  FETCH_INFO,
+  FETCH_FAILURE,
+  FILTER_MOVIES
+} from "./Actions.js";
+import {
+  fetchMovieList,
+  fetchDetailedInfo,
+  fetchFilteredMovies
+} from "./ApiActions";
 
 export const getSearchMovieList = (srchQuery) => async (dispatch) => {
   let resp;
@@ -43,6 +54,16 @@ export const getListPerPage = (srchQuery, pageNo) => async (dispatch) => {
   });
 };
 
+export const fetchDetailedMovieInfo = (movieId) => async (dispatch) => {
+  const resp = await fetchDetailedInfo(movieId);
+  console.log(resp, "resp for info");
+  dispatch({
+    type: FETCH_INFO,
+    fetching: false,
+    movieInfo: resp
+  });
+};
+
 export const startFetchMovies = () => {
   console.log("in action creator fetch ");
   return {
@@ -54,4 +75,12 @@ export const sendFecthFailure = () => {
   return {
     type: FETCH_FAILURE
   };
+};
+
+export const filterMovies = () => async (dispatch) => {
+  let resp = await fetchFilteredMovies();
+  dispatch({
+    type: FILTER_MOVIES,
+    genres: resp.genres
+  });
 };

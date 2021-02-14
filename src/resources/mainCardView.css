@@ -1,0 +1,77 @@
+.mainCardView {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 140px 5% 10px;
+  justify-content: center;
+  color: white;
+  font-size: 1.2em;
+  min-height: 100vh;
+}
+.cardContainer {
+  position: relative;
+  width: 250px;
+  margin: 10px 0;
+}
+
+.card {
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 10px;
+  background-size: cover;
+  background-position: center;
+  height: 360px;
+}
+.cardContainer:hover .card {
+  box-shadow: 7px 5px #888888;
+  cursor: pointer;
+  filter: blur(4px);
+}
+.cardTitle {
+  font-size: 16px;
+  font-family: monospace;
+}
+.pageIndex,
+.cardTitle,
+.paginationButton {
+  color: white;
+}
+.cardContainer:hover .cardTitle {
+  visibility: inherit;
+  font-family: monospace;
+  z-index: 2;
+  position: absolute;
+  top: 10%;
+  left: 7%;
+  display: flex;
+  padding: 10px;
+  text-align: left;
+  font-size: 20px;
+  text-shadow: 2px 2px gray;
+}
+.bottomBar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  min-height: 250px;
+}
+.paginationButton {
+  border-radius: 5px;
+  background-color: gray;
+  margin: 0 15px;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+}
+.searchBarContainer {
+  position: relative;
+  width: 60%;
+}
+.searchBtn {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  cursor: pointer;
+  color: white;
+}

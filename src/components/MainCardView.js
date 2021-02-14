@@ -1,17 +1,20 @@
+import "../resources/mainCardView.css";
 import { connect } from "react-redux";
 import MovieCard from "./Card";
 import Loader from "./Loader";
 
-const MainCardView = ({ fetching, list }) => {
+const MainCardView = ({ fetching, movieList, genres, fetchGenres }) => {
   console.log(fetching, "fetching");
   return (
-    <div className="mainCardView">
+    <div id="list">
       {fetching ? (
         <Loader />
-      ) : list && list.length > 0 ? (
-        list.map((movie) => {
-          return <MovieCard key={movie.id} movieDetails={movie} />;
-        })
+      ) : movieList && movieList.length > 0 ? (
+        <div className="mainCardView">
+          {movieList.map((movie) => {
+            return <MovieCard key={movie.id} movieDetails={movie} />;
+          })}
+        </div>
       ) : (
         "No movies found."
       )}
@@ -21,7 +24,10 @@ const MainCardView = ({ fetching, list }) => {
 
 const mapStateToProps = (state) => {
   console.log(state, "list in map state");
-  return { list: state.list, fetching: state.fetching };
+  return {
+    movieList: state.list,
+    fetching: state.fetching
+  };
 };
 
 export default connect(mapStateToProps)(MainCardView);

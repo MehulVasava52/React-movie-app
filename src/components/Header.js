@@ -1,4 +1,6 @@
+import "../resources/header.css";
 import SearchBar from "./SearchBar";
+import { Link as RouterLink } from "react-router-dom";
 import {
   makeStyles,
   AppBar,
@@ -7,6 +9,7 @@ import {
   ButtonGroup,
   Button
 } from "@material-ui/core";
+
 const useStyles = makeStyles({
   root: {
     minHeight: 80,
@@ -40,21 +43,22 @@ const useStyles = makeStyles({
 });
 const Header = () => {
   const classes = useStyles();
+
   return (
-    <div className="headerContainer">
-      {/* <img className="logo" src={require("../resources/images/logo.png")} /> */}
-      {/* <SearchBar /> */}
+    <div id="app-header" className="headerContainer">
       <AppBar color="secondary" className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.toolBarLeftContainer}>
-            <Typography
-              className={classes.appName}
-              variant="h6"
-              component="h2"
-              align="center"
-            >
-              Mehul React App
-            </Typography>
+            <RouterLink to="/">
+              <Typography
+                className={classes.appName}
+                variant="h6"
+                component="h2"
+                align="center"
+              >
+                Mehul React App
+              </Typography>
+            </RouterLink>
             <SearchBar />
           </div>
           <ButtonGroup
@@ -63,9 +67,12 @@ const Header = () => {
             size="large"
             aria-label="text primary button group"
           >
-            <Button>Home</Button>
-            <Button>List</Button>
-            <Button>Filter</Button>
+            <RouterLink to="/">
+              <Button>Home</Button>
+            </RouterLink>
+            <RouterLink to="/">
+              <Button>List</Button>
+            </RouterLink>
           </ButtonGroup>
         </Toolbar>
       </AppBar>

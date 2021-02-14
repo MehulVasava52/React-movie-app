@@ -1,11 +1,20 @@
-import { SEARCH, PAGE_LIST, FETCH, FETCH_FAILURE } from "../actions/Actions";
+import {
+  SEARCH,
+  PAGE_LIST,
+  FETCH,
+  FETCH_FAILURE,
+  FETCH_INFO,
+  FETCH_GENRES
+} from "../actions/Actions";
 const initialState = {
   list: [],
   pageNo: 1,
   totalPages: 0,
   searchQuery: "",
   fetching: false,
-  fetchFailed: false
+  fetchFailed: false,
+  movieInfo: {},
+  genres: []
 };
 // set loader
 const mainReducer = (state = initialState, action) => {
@@ -33,11 +42,22 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         fetching: true
       };
+    case FETCH_GENRES:
+      return {
+        ...state,
+        genres: action.genres
+      };
     case FETCH_FAILURE:
       return {
         ...state,
         fetching: false,
         fetchFailed: true
+      };
+    case FETCH_INFO:
+      return {
+        ...state,
+        fetching: action.fetching,
+        movieInfo: action.movieInfo
       };
     default:
       return state;

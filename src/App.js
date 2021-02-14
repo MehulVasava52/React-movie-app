@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import BottomBar from "./components/BottomBar";
 import Carousel from "./components/Carousel";
 import DetailedCardView from "./components/DetailedCardView";
+import ScrollTop from "./components/ScrollTop";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = ({ getSearchMovieList, startFetchMovies }) => {
@@ -24,6 +25,7 @@ const App = ({ getSearchMovieList, startFetchMovies }) => {
           <Route exact path="/">
             <Carousel />
             <MainCardView />
+            <ScrollTop />
             <BottomBar />
           </Route>
           <Route exact path="/detailedView" component={DetailedCardView} />

@@ -1,17 +1,25 @@
+import "../resources/slider.css";
 import Slider from "react-slick";
 import { connect } from "react-redux";
 import { API } from "../constants/index";
-const Carousel = ({ list }) => {
+import { Link } from "react-router-dom";
+import {
+  startFetchMovies,
+  fetchDetailedMovieInfo
+} from "../actions/ActionCreators";
+
+const Carousel = ({ list, startFetchMovies, fetchDetailedMovieInfo }) => {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    autoplay: true
   };
 
   return (
-    <div className="sliderContainer">
+    <div id="home" className="sliderContainer">
       <Slider {...settings}>
         {list.map((movie, index) => {
           return (
@@ -24,7 +32,15 @@ const Carousel = ({ list }) => {
                   })`
                 }}
               >
-                <img src={API.backgroundImgBaseUrl + movie.poster_path} />
+                <Link to="/detailedView">
+                  <img
+                    onClick={() => {
+                      startFetchMovies();
+                      fetchDetailedMovieInfo(movie.id);
+                    }}
+                    src={API.backgroundImgBaseUrl + movie.poster_path}
+                  />
+                </Link>
               </div>
             </div>
           );
@@ -39,4 +55,7 @@ const mapStateToProps = (state) => {
     list: state.list
   };
 };
-export default connect(mapStateToProps)(Carousel);
+export default connect(mapStateToProps, {
+  startFetchMovies,
+  fetchDetailedMovieInfo
+})(Carousel);

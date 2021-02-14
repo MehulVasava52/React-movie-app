@@ -8,6 +8,12 @@ import {
   Typography
 } from "@material-ui/core";
 import { API } from "../constants/index";
+import { connect } from "react-redux";
+import {
+  fetchDetailedMovieInfo,
+  startFetchMovies
+} from "../actions/ActionCreators";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -43,40 +49,52 @@ const useStyles = makeStyles({
     height: "100%"
   }
 });
-const MovieCard = ({ movieDetails }) => {
+
+const MovieCard = ({
+  movieDetails,
+  fetchDetailedMovieInfo,
+  startFetchMovies
+}) => {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardActionArea className={classes.actionArea}>
-        <CardMedia
-          className={classes.media}
-          image={
-            movieDetails.poster_path
-              ? API.backgroundImgBaseUrl + movieDetails.poster_path
-              : API.noBackgroundImageUrl
-          }
-          title={movieDetails.title}
-        />
-        <CardContent className={classes.contentRoot}>
-          <Typography
-            className={classes.title}
-            gutterBottom
-            variant="h5"
-            component="h2"
-          >
-            {movieDetails.title}
-          </Typography>
-          <Typography
-            className={classes.content}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {movieDetails.overview}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      {/* <CardActions>
+    <Card
+      className={classes.root}
+      onClick={() => {
+        startFetchMovies();
+        fetchDetailedMovieInfo(movieDetails.id);
+      }}
+    >
+      <Link to="/detailedView">
+        <CardActionArea className={classes.actionArea}>
+          <CardMedia
+            className={classes.media}
+            image={
+              movieDetails.poster_path
+                ? API.backgroundImgBaseUrl + movieDetails.poster_path
+                : API.noBackgroundImageUrl
+            }
+            title={movieDetails.title}
+          />
+          <CardContent className={classes.contentRoot}>
+            <Typography
+              className={classes.title}
+              gutterBottom
+              variant="h5"
+              component="h2"
+            >
+              {movieDetails.title}
+            </Typography>
+            <Typography
+              className={classes.content}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
+              {movieDetails.overview}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        {/* <CardActions>
         <Button size="small" color="primary">
           Share
         </Button>
@@ -84,8 +102,11 @@ const MovieCard = ({ movieDetails }) => {
           Learn More
         </Button>
       </CardActions> */}
+      </Link>
     </Card>
   );
 };
 
-export default MovieCard;
+export default connect(null, { startFetchMovies, fetchDetailedMovieInfo })(
+  MovieCard
+);
