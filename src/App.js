@@ -6,6 +6,7 @@ import MainCardView from "./components/MainCardView";
 import Header from "./components/Header";
 import BottomBar from "./components/BottomBar";
 import Carousel from "./components/Carousel";
+import Sidebar from "./components/SideBarFilters";
 import DetailedCardView from "./components/DetailedCardView";
 import ScrollTop from "./components/ScrollTop";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -25,8 +26,9 @@ const App = ({ getSearchMovieList, startFetchMovies }) => {
       case PAGE_VIEWS.FILTER_PAGE:
         return (
           <>
-            <Header isMainPage={isMainPage} />
-            {isMainPage ? <Carousel /> : ""}
+            <Header isSideBar={!isMainPage} />
+            {isMainPage && <Carousel />}
+            {!isMainPage && <Sidebar />}
             <MainCardView />
             <ScrollTop />
             <BottomBar />

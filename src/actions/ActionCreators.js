@@ -4,12 +4,15 @@ import {
   FETCH,
   FETCH_INFO,
   FETCH_FAILURE,
-  FILTER_MOVIES
+  FILTER_MOVIES,
+  TOGGLE_SIDEBAR,
+  MOVIE_GENRES
 } from "./Actions.js";
 import {
   fetchMovieList,
   fetchDetailedInfo,
-  fetchFilteredMovies
+  fetchFilteredMovies,
+  fetchMovieGenres
 } from "./ApiActions";
 
 export const getSearchMovieList = (srchQuery) => async (dispatch) => {
@@ -77,10 +80,34 @@ export const sendFecthFailure = () => {
   };
 };
 
-export const filterMovies = () => async (dispatch) => {
-  let resp = await fetchFilteredMovies();
+export const fetchGenres = () => async (dispatch) => {
+  let resp = await fetchMovieGenres();
+  dispatch({
+    type: MOVIE_GENRES,
+    genres: resp.genres.map((genre) => {
+      genre.value = false;
+      return genre;
+    })
+  });
+};
+
+// make below action = send filter data
+export const filterMovies = (selectedGenres) => async (dispatch) => {
+  let resp = await fetchFilteredMovies(selectedGenres);
   dispatch({
     type: FILTER_MOVIES,
-    genres: resp.genres
+    list: resp.results.map((genre) => {
+      genre.value = false;
+      return genre;
+    }),
+    pageNo: 1,
+    totalPages: resp.total_pages
   });
+};
+
+export const toggleSideBar = (isOpened) => {
+  return {
+    type: TOGGLE_SIDEBAR,
+    isSideBarOpen: isOpened
+  };
 };

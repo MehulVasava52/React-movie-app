@@ -1,4 +1,5 @@
 import "../resources/header.css";
+import { useEffect } from "react";
 import SearchBar from "./SearchBar";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -7,8 +8,12 @@ import {
   Toolbar,
   Typography,
   ButtonGroup,
-  Button
+  Button,
+  IconButton
 } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import { connect } from "react-redux";
+import { toggleSideBar, fetchGenres } from "../actions/ActionCreators";
 
 const useStyles = makeStyles({
   root: {
@@ -42,14 +47,29 @@ const useStyles = makeStyles({
   }
 });
 
-const Header = () => {
+const Header = ({ isSideBar, toggleSideBar, fetchGenres }) => {
   const classes = useStyles();
 
+  useEffect(() => {
+    fetchGenres();
+  }, []);
   return (
     <div id="app-header" className="headerContainer">
       <AppBar color="secondary" className={classes.root}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.toolBarLeftContainer}>
+            {isSideBar && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => {
+                  toggleSideBar(true);
+                }}
+                edge="start"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <RouterLink to="/">
               <Typography
                 className={classes.appName}
@@ -81,4 +101,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default connect(null, { toggleSideBar, fetchGenres })(Header);

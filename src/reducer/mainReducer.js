@@ -4,7 +4,9 @@ import {
   FETCH,
   FETCH_FAILURE,
   FETCH_INFO,
-  FILTER_MOVIES
+  FILTER_MOVIES,
+  TOGGLE_SIDEBAR,
+  MOVIE_GENRES
 } from "../actions/Actions";
 const initialState = {
   list: [],
@@ -15,6 +17,7 @@ const initialState = {
   fetchFailed: false,
   movieInfo: {},
   filters: [],
+  genres: [],
   hasFilters: false
 };
 
@@ -30,6 +33,11 @@ const mainReducer = (state = initialState, action) => {
         totalPages: action.totalPages,
         pageNo: action.pageNo
       };
+    case TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        isSideBarOpen: action.isSideBarOpen
+      };
     case PAGE_LIST:
       return {
         ...state,
@@ -43,10 +51,10 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         fetching: true
       };
-    case FILTER_MOVIES:
+    case MOVIE_GENRES:
       return {
         ...state,
-        genres: action.filters
+        genres: action.genres
       };
     case FETCH_FAILURE:
       return {
@@ -59,6 +67,13 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         fetching: action.fetching,
         movieInfo: action.movieInfo
+      };
+    case FILTER_MOVIES:
+      return {
+        ...state,
+        list: action.list,
+        totalPages: action.totalPages,
+        pageNo: action.pageNo
       };
     default:
       return state;

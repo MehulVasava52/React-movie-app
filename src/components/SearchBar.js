@@ -60,7 +60,10 @@ const SearchBar = ({ searchList, searchQuery }) => {
         onKeyPress={handleKeyPress}
       />
       <Link to="/">
-        <FaSearch className="searchBtn" onClick={startSearch} />
+        <FaSearch
+          className="searchBtn"
+          onClick={startSearch.bind(this, searchInput)}
+        />
       </Link>
     </div>
   );

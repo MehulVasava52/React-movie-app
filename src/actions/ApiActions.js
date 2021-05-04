@@ -17,11 +17,18 @@ export const fetchDetailedInfo = async (movieId) => {
   ).json();
 };
 
-export const fetchFilteredMovies = async () => {
+export const fetchMovieGenres = async () => {
   return await (
     await fetch(
       "https://api.themoviedb.org/3/genre/movie/list?&api_key=cfe422613b250f702980a3bbf9e90716"
     )
   ).json();
 };
-// https://api.themoviedb.org/3/discover/movie?with_genres=36&api_key=cfe422613b250f702980a3bbf9e90716
+
+export const fetchFilteredMovies = async (genreIds) => {
+  return await (
+    await fetch(
+      `https://api.themoviedb.org/3/discover/movie?with_genres=${genreIds}&api_key=cfe422613b250f702980a3bbf9e90716`
+    )
+  ).json();
+};
